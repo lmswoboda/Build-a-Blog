@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Build-A-Blog</title>
+    </head>
+
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .error {
+            color: red
+        }
+
+        label {
+            display: block;
+            font-size: 20px;
+        }
+
+        input [type=text] {
+            width: 400px;
+            font-size: 20px;
+            padding: 2px;
+        }
+
+        textarea {
+            width: 400px;
+            height: 200px;
+            font-size: 17px;
+            font-family: monospace;
+        }
+
+        input [type=submit] {
+            font-size: 24px;
+        }
+
+        hr {
+            margin: 20px;
+        }
+
+        .submission + .submission {
+            margin-top: 20px;
+        }
+
+        .submission-tytle {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .submission-body {
+            margin: 0;
+            font-size: 17;
+        }
+
+        a:-webkit-any-link {
+            color: -webkit-link;
+            text-decoration: underline;
+            cursor: auto;
+            }
+    </style>
+
+
+    <body>
+
+        <nav>
+            <a href="/">home</a>
+            &nbsp;&nbsp; | &nbsp;&nbsp;
+            <a href="/newpost">new post</a>
+        </nav>
+
+        <h1>
+            Blogz!
+            <!-- <a href="/">Blogz!</a> -->
+        </h1>
+
+<!--
+        <hr> -->
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+
+</html>

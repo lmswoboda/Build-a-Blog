@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% for submission in submissions %}
+        <div class = "submission">
+            <a href = "/blog/{{submission.key().id()}}">
+                <div class = "submission-title">{{submission.title}}</div>
+            </a>
+            <pre class = "submission-body">{{submission.body}}</pre>
+        </div>
+    {% endfor %}
+
+
+
+{% endblock %}
