@@ -59,9 +59,11 @@ public class CheeseController {
 
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm() {
+    public String processRemoveCheeseForm(@RequestParam ArrayList<String> cheese) {
 
-//        cheeses.remove(cheeseName);
+        for (String c : cheese) {
+            cheeses.remove(c);
+        }
         return "redirect:";
     }
 

@@ -14,12 +14,12 @@
 
 
 
-    <form method="post">
+    <form method="POST" th:if="${cheeses} and ${cheeses.size()}">
             <div th:each="cheese : ${cheeses}">
-                <input type="checkbox" th:value="${cheese}"/>
+                <input type="checkbox" name="cheese" th:value="${cheese.key}"/>
                 <label th:text="${cheese.key}" th:name="cheeseName"></label>
             </div>
-        <input type="submit" />
+        <input type="submit" value="Remove Cheese" />
 
     </form>
 
