@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -21,7 +22,8 @@ public class CheeseController {
 //    Took Arraylist from index method and put here so accessible to all methods here and added Static in front
 //    per instructor and will be explained later.  Also removed hard coded Arraylist elements from index method.
 //    static?--this ArrayList exists only when this application is running.  If stop, ArrayList goes away-no database?
-    static ArrayList<String> cheeses = new ArrayList<>();
+    static HashMap<String, String> cheeses = new HashMap<>();
+    static ArrayList<String> removeList = new ArrayList<>();
 
     // Request path: /cheese
     @RequestMapping(value = "")
@@ -40,10 +42,26 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@RequestParam String cheeseName) {
-        cheeses.add(cheeseName);
+    public String processAddCheeseForm(@RequestParam String cheeseName, String cheeseDescription) {
+        cheeses.put(cheeseName, cheeseDescription);
 
 //        Redirects to /cheese and since we are in /cheese nothing put in below.
+        return "redirect:";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    public String displayRemoveCheeseForm(Model model) {
+        model.addAttribute("cheeses", cheeses);
+        model.addAttribute("title", "Remove");
+
+        return "cheese/remove";
+    }
+
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String processRemoveCheeseForm() {
+
+//        cheeses.remove(cheeseName);
         return "redirect:";
     }
 

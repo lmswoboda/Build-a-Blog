@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleav.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title th:text="${title}">Title</title>
-</head>
+<head th:replace="fragments :: head"></head>
 <body>
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post">
-    <input type="text" name="cheeseName"/>
-    <input type="submit" value="Add Cheese"/>
+<nav th:replace="fragments :: navigation"></nav>
 
+<form method="post">
+
+    <input type="text" name="cheeseName"/><label for= "cheeseName">cheese</label>
+
+    <input type="textarea" name="cheeseDescription"/><label for="cheeseDescription">description</label>
+
+    <input type="submit" value="Add Cheese"/>
 
 </form>
 
