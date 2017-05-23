@@ -1,5 +1,6 @@
 package org.launchcode.cheesemvc.controllers;
 
+import org.launchcode.cheesemvc.models.Cheese;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class CheeseController {
 //    Took Arraylist from index method and put here so accessible to all methods here and added Static in front
 //    per instructor and will be explained later.  Also removed hard coded Arraylist elements from index method.
 //    static?--this ArrayList exists only when this application is running.  If stop, ArrayList goes away-no database?
-    static HashMap<String, String> cheeses = new HashMap<>();
+    static ArrayList<Cheese> cheeses = new ArrayList<>();
     static ArrayList<String> removeList = new ArrayList<>();
 
     // Request path: /cheese
@@ -43,7 +44,10 @@ public class CheeseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddCheeseForm(@RequestParam String cheeseName, String cheeseDescription) {
-        cheeses.put(cheeseName, cheeseDescription);
+        Cheese cheese = new Cheese();
+        cheese.setName(cheeseName);
+        cheese.setDescription(cheeseDescription);
+        cheeses.add(cheese);
 
 //        Redirects to /cheese and since we are in /cheese nothing put in below.
         return "redirect:";
@@ -59,9 +63,9 @@ public class CheeseController {
 
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam ArrayList<String> cheese) {
+    public String processRemoveCheeseForm(@RequestParam ArrayList<Cheese> cheeses) {
 
-        for (String c : cheese) {
+        for (Cheese c : cheeses) {
             cheeses.remove(c);
         }
         return "redirect:";
