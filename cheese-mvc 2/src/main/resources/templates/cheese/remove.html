@@ -10,16 +10,12 @@
 <p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(</p>
 
 
-
-
-
-
     <form method="POST" th:if="${cheeses} and ${cheeses.size()}">
             <div th:each="cheese : ${cheeses}">
-                <input type="checkbox" name="cheese" th:value="${cheese.key}"/>
-                <label th:text="${cheese.key}" th:name="cheeseName"></label>
+                <input type="checkbox" name="cheese" th:value="${cheese.getName()}"/>
+                <label th:text="${cheese.getName()}" th:name="cheeseName"></label>
             </div>
-        <input type="submit" value="Remove Cheese" />
+        <input type="submit" value="Remove Cheese"/>
 
     </form>
 

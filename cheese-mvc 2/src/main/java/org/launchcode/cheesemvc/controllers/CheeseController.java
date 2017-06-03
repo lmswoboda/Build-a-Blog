@@ -43,13 +43,13 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@RequestParam String cheeseName, String cheeseDescription) {
-        Cheese cheese = new Cheese();
-        cheese.setName(cheeseName);
-        cheese.setDescription(cheeseDescription);
-        cheeses.add(cheese);
+    public String processAddCheeseForm(@RequestParam String cheeseName, @RequestParam String cheeseDescription) {
+        Cheese ch = new Cheese();
+        ch.setName(cheeseName);
+        ch.setDescription(cheeseDescription);
+        cheeses.add(ch);
 
-//        Redirects to /cheese and since we are in /cheese nothing put in below.
+//        Redirects to /ch and since we are in /ch nothing put in below.
         return "redirect:";
     }
 
@@ -63,13 +63,16 @@ public class CheeseController {
 
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam ArrayList<Cheese> cheeses) {
+    public String processRemoveCheeseForm(@RequestParam ArrayList<String> cheese) {
 
-        for (Cheese c : cheeses) {
-            cheeses.remove(c);
+        for (String removeName : cheese) {
+           for (Cheese ch: cheeses){
+               if (removeName.equals(ch.getName())) {
+                   cheeses.remove(ch);
+               }
+           }
         }
         return "redirect:";
     }
-
 
 }
