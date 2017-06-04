@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleav.org/">
 <head th:replace="fragments :: head"></head>
-<body>
+
+<body class="container">
 
 <h1 th:text="${title}">Default Title</h1>
 
@@ -10,16 +11,17 @@
 <p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(</p>
 
 
-    <form method="POST" th:if="${cheeses} and ${cheeses.size()}">
-            <div th:each="cheese : ${cheeses}">
-                <input type="checkbox" name="cheese" th:value="${cheese.getName()}"/>
-                <label th:text="${cheese.getName()}" th:name="cheeseName"></label>
+    <form method="POST">
+
+            <div th:each="cheese : ${cheeses}" class="checkbox">
+                <input type="checkbox" name="cheeseIds" th:value="${cheese.cheeseId}" th:id="${cheese.cheeseId}"/>
+                <label th:for="${cheese.cheeseId}" th:text="${cheese.name}"></label>
+                <br/>
             </div>
-        <input type="submit" value="Remove Cheese"/>
+
+        <input type="submit" value="remove"/>
 
     </form>
-
-
 
 </body>
 </html>

@@ -1,14 +1,15 @@
 package org.launchcode.cheesemvc.controllers;
 
 import org.launchcode.cheesemvc.models.Cheese;
+import org.launchcode.cheesemvc.models.CheeseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
@@ -20,19 +21,14 @@ import java.util.HashMap;
 @RequestMapping(value = "cheese")
 public class CheeseController {
 
-//    Took Arraylist from index method and put here so accessible to all methods here and added Static in front
-//    per instructor and will be explained later.  Also removed hard coded Arraylist elements from index method.
-//    static?--this ArrayList exists only when this application is running.  If stop, ArrayList goes away-no database?
-    static ArrayList<Cheese> cheeses = new ArrayList<>();
-    static ArrayList<String> removeList = new ArrayList<>();
+
 
     // Request path: /cheese
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("cheeses", cheeses);
+        model.addAttribute("cheeses", CheeseData.getAll());
         model.addAttribute("title", "My Cheeses");
-
         return "cheese/index";
     }
 
@@ -43,35 +39,28 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@RequestParam String cheeseName, @RequestParam String cheeseDescription) {
-        Cheese ch = new Cheese();
-        ch.setName(cheeseName);
-        ch.setDescription(cheeseDescription);
-        cheeses.add(ch);
+    public String processAddCheeseForm(@ModelAttribute Cheese newCheese) {
 
-//        Redirects to /ch and since we are in /ch nothing put in below.
+        CheeseData.add(newCheese);
         return "redirect:";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveCheeseForm(Model model) {
-        model.addAttribute("cheeses", cheeses);
-        model.addAttribute("title", "Remove");
+        model.addAttribute("cheeses", CheeseData.getAll());
+        model.addAttribute("title", "Remove Cheese");
 
         return "cheese/remove";
     }
 
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam ArrayList<String> cheese) {
+    public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
 
-        for (String removeName : cheese) {
-           for (Cheese ch: cheeses){
-               if (removeName.equals(ch.getName())) {
-                   cheeses.remove(ch);
-               }
-           }
+        for (int cheeseId : cheeseIds) {
+            CheeseData.remove(cheeseId);
         }
+
         return "redirect:";
     }
 
